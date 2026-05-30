@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── Node.js backend ────────────────────────────────────────────────────
+  node:
+    name: Node.js backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check syntax (server.js)
+        run: node --check backend/server.js
+
+      - name: Check syntax (routes)
+        run: |
+          for f in backend/routes/*.js backend/middleware/*.js; do
+            node --check "$f"
+          done
+
+  # ── Python AI server ───────────────────────────────────────────────────
+  python:
+    name: Python AI server (import check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install lightweight deps (syntax check only)
+        run: |
+          pip install fastapi pydantic uvicorn numpy
+
+      - name: Check Python syntax
+        run: |
+          python -m py_compile ai_server/main.py
+          python -m py_compile ai_server/src/face_pipeline.py
+          python -m py_compile ai_server/src/voice_pipeline.py
+          echo "✅ All Python files syntax-valid"
+
+  # ── Docker build (AI server) ───────────────────────────────────────────
+  docker:
+    name: Docker build (AI server)
+    runs-on: ubuntu-latest
+    # Only run on push to main to save CI minutes
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t snapclass-ai:ci .
