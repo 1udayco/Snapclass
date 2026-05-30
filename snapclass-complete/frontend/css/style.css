@@ -1,9 +1,9 @@
 /* ════════════════════════════════════════════════
    SnapClass — Main Stylesheet
-   Fonts: Climate Crisis (headings) + Outfit (body)
+   Fonts: Climate Crisis (brand) + Poppins (headings) + Inter (body)
    Colors: #5865F2 blue | #EB459E pink | #E0E3FF light
 ════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -26,7 +26,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: var(--bg);
   color: var(--dark);
   line-height: 1.6;
@@ -88,7 +88,7 @@ html, body {
   box-shadow: 0 20px 60px rgba(0,0,0,.22);
 }
 .portal-card h2 {
-  font-family: 'Climate Crisis', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--blue); font-size: 1.7rem; margin-bottom: .75rem;
 }
 .portal-card img { height: 108px; margin: .75rem 0; display: block; margin-inline: auto; }
@@ -96,7 +96,10 @@ html, body {
 
 .home-footer {
   margin-top: 2.5rem; display: flex; align-items: center;
-  gap: 7px; color: #c7d2feaa; font-size: .9rem;
+  gap: 8px; color: #c7d2feaa; font-size: .95rem;
+}
+.home-footer strong {
+  color: #ffffff; font-weight: 700;
 }
 .home-footer img { height: 22px; }
 
@@ -112,7 +115,7 @@ html, body {
   box-shadow: 0 20px 60px rgba(88,101,242,.13);
 }
 .auth-card h2 {
-  font-family: 'Climate Crisis', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--blue); font-size: 1.9rem; margin-bottom: .3rem;
 }
 .auth-card p { color: var(--gray); margin-bottom: 1.5rem; }
@@ -153,7 +156,7 @@ html, body {
   margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
 }
 .section-title {
-  font-family: 'Climate Crisis', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--dark); font-size: 1.85rem;
 }
 
