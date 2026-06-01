@@ -15,18 +15,20 @@ app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, '../frontend')));
-
 // API routes
 app.use('/api/teachers',    teacherRoutes);
 app.use('/api/subjects',    subjectRoutes);
 app.use('/api/students',    studentRoutes);
 app.use('/api/attendance',  attendanceRoutes);
 
-// SPA fallback – every unknown route serves index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
+// 404 handler for unmatched API routes
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found' });
 });
 
 if (require.main === module) {
