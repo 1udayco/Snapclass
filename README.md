@@ -69,9 +69,14 @@ cp .env.example .env
 ```
 SUPABASE_URL=https://your-project-id.supabase.co
 SUPABASE_KEY=your-anon-public-key
+# Optional compatibility names for Next-style public env usage
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-anon-public-key
 PORT=3000
 AI_SERVER_URL=http://localhost:8000
 ```
+
+> Note: This app uses the backend server to access Supabase, so the main values are `SUPABASE_URL` and `SUPABASE_KEY`. The `NEXT_PUBLIC_*` names are also accepted so you can deploy from environments that expect Next.js-style public env vars.
 
 ### 4 — Run both servers
 
